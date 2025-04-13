@@ -2,17 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 
-use Laravel\Socialite\Facades\Socialite;
-
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Auth\LoginController;
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
-Route::get('/auth/redirect', function () {
-    return Socialite::driver('google')->redirect();
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 });
- 
-Route::get('/auth/callback', function () {
-    $user = Socialite::driver('google')->user();
-    dd($user);
-})->name('google.login.callback');
+
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::get('/login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
+    Route::get('/login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+});
+
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
