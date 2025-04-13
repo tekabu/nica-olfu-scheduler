@@ -1,0 +1,21 @@
+services:
+  nginx:
+    build: 
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: scheduler-nginx
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./src:/var/www/html
+    ports:
+      - 0.0.0.0:8081:80
+  php:
+    build: 
+      context: ./php
+      dockerfile: Dockerfile
+    container_name: scheduler-php
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./src:/var/www/html
