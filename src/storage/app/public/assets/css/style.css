@@ -1,0 +1,9 @@
+.navbar-dark {
+	background-color: #031273;
+}
+.sidebar-dark {
+	background-color: #8B0000;
+}
+.dataTable thead tr th {
+	white-space: nowrap;
+}
