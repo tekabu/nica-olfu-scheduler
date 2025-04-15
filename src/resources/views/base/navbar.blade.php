@@ -9,7 +9,7 @@
 
         <div class="navbar-brand flex-1 flex-lg-0">
             <a href="{{ route('dashboard') }}" class="d-inline-flex align-items-center">
-                <img src="{{ asset('images/logo1.png') }}" alt="" style="height: 2rem !important">
+                <img src="{{ asset('images/logo.png') }}" alt="" style="height: 2rem !important">
             </a>
         </div>
 
@@ -35,7 +35,7 @@
                         <img src="{{ asset('images/uni-user.png') }}" class="w-32px h-32px rounded-pill" alt="">
                         <span class="status-indicator bg-success"></span>
                     </div>
-                    <span class="d-none d-lg-inline-block mx-lg-2">Username</span>
+                    <span class="d-none d-lg-inline-block mx-lg-2">{{ $user->name }}</span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-end">

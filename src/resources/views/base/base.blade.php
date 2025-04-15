@@ -3,9 +3,7 @@
 @include('base.head')
 
 <body>
-    @if($navbar_visible ?? true)
-        @include('base.navbar')
-    @endif
+    @include('base.navbar')
 
     <!-- Page content -->
     <div class="page-content">
@@ -17,7 +15,6 @@
             <!-- Inner content -->
             <div class="content-inner">
 
-                @if(($header_visible ?? true) && ($header_title ?? false))
                     @section('header')
                     <!-- Page header -->
                     <div class="page-header page-header-light shadow">
@@ -25,7 +22,8 @@
                             @section('header-content')
                             <div class="d-flex">
                                 <h4 class="page-title mb-0">
-                                    {{ $header_title }}
+                                    @yield('header_title')
+                                    @show
                                 </h4>
                             </div>
                             @yield('header_right')
@@ -34,7 +32,6 @@
                     </div>
                     <!-- /page header -->
                     @show
-                @endif
 
                 @section('content-area')
                 <!-- Content area -->
@@ -44,11 +41,9 @@
                 <!-- /content area -->
                 @show
                 
-                @if($footer_visible ?? true)
-                    @section('footer')
-                        @include('base.footer')
-                    @show
-                @endif
+                @section('footer')
+                    @include('base.footer')
+                @show
             </div>
             <!-- /inner content -->
         </div>
