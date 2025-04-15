@@ -1,4 +1,4 @@
-# *
-# !private/
-# !public/assets/*
-# !.gitignore
+*
+!private/
+!public/
+!.gitignore
