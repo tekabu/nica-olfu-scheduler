@@ -17,7 +17,9 @@ class LoginController extends Controller
             $error = "</br>".session('error');
         }
 
-        return '<a href="'.route('login.google').'">Google Login</a>'.$error;
+        # return '<a href="'.route('login.google').'">Google Login</a>'.$error;
+
+        return view('login');
     }
     public function logout(Request $request)
     {
