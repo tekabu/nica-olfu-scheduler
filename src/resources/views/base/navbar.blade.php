@@ -40,10 +40,10 @@
 
                 <div class="dropdown-menu dropdown-menu-end">
 
-                    <a href="{{ route('profile') }}" class="dropdown-item">
+                    <!-- <a href="{{ route('profile') }}" class="dropdown-item">
                         <i class="ph-user-circle me-2"></i>
                         My Profile
-                    </a>
+                    </a> -->
                     <a href="{{ route('logout') }}" class="dropdown-item">
                         <i class="ph-sign-out me-2"></i>
                         Logout
