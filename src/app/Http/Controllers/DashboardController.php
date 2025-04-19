@@ -37,9 +37,29 @@ class DashboardController extends Controller
             array_push($events, $event);
         }
 
+        $total = count($schedules);
+        $onGoing = count(array_filter($events, fn($event) => $event['status'] === 'On-Going'));
+        $completed = count(array_filter($events, fn($event) => $event['status'] === 'Completed'));
+        $due = count(array_filter($events, fn($event) => $event['status'] === 'Due'));
+
+        $schedules = $schedules->map(function ($item) {
+            return [
+                'title' => $item->title,
+                'description' => $item->description,
+                'started_date' => $item->started_date,
+                'ended_date' => $item->ended_date,
+                'completed_date' => $item->completed_date,
+            ];
+        });
+
         return view('dashboard', [
             'user'=> $user,
-            'events' => $events
+            'events' => $events,
+            'total' => $total,
+            'onGoing' => $onGoing,
+            'completed' => $completed,
+            'due' => $due,
+            'schedules' => $schedules->toJson(),
         ]);
     }
 }
