@@ -20,9 +20,6 @@
     @stack('styles')
 
     @stack('head_js')
-</head>
-
-    @stack('head_js')
 
     <!-- Theme JS files -->
     <script src="{{ asset('js/app.js') }}"></script>
