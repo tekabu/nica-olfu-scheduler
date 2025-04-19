@@ -26,7 +26,7 @@ class GoogleController extends Controller
             $allowedDomains = explode(',', env('ALLOWED_EMAIL_DOMAIN'));
 
             if (!in_array(Str::afterLast($googleUser->email, '@'), $allowedDomains)) {
-                return redirect(route('login'))->with('error', 'Invalid email address. Please contact support.');
+                return redirect(route('login.login'))->with('error', 'Invalid email address. Please contact support.');
             }
             
             $user = User::updateOrCreate([
