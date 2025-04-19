@@ -32,6 +32,12 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('schedules.index') }}" class="nav-link {{ request()->routeIs('schedules.index') ? 'active' : '' }}">
+                        <i class="ph-list"></i>
+                        <span>Schedules</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- /main navigation -->
