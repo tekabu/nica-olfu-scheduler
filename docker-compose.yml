@@ -32,7 +32,4 @@ services:
       - ./src:/srv
       - ./filebrowser/database:/database
       - ./filebrowser/config:/config
-    environment:
-      - PUID=${FILEBROWSER_USERNAME}
-      - PGID=${FILEBROWSER_PASSWORD}
     restart: ${DOCKER_RESTART}
