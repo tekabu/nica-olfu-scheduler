@@ -13,7 +13,10 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        $schedules = Schedule::get();
+        $schedules = Schedule::with(['department'])
+        ->get();
+
+        # dd($schedules->toArray());
 
         $events = [];
 
@@ -44,6 +47,7 @@ class DashboardController extends Controller
 
         $schedules = $schedules->map(function ($item) {
             return [
+                'department_name' => $item->department_name,
                 'title' => $item->title,
                 'description' => $item->description,
                 'started_date' => $item->started_date,

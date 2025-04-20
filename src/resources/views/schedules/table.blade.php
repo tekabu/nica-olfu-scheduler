@@ -9,6 +9,7 @@
             <thead>
                 <tr>
                     <th class="action">#</th>
+                    <th class="department_name">Department</th>
                     <th class="title">Title</th>
                     <th class="description">Description</th>
                     <th class="started_date">Started Date</th>
@@ -89,6 +90,7 @@
             data: {!! $table_data !!},
             columns: [
                 { data: 'action' },
+                { data: 'department_name' },
                 { data: 'title' },
                 { data: 'description' },
                 { data: 'started_date' },
@@ -156,7 +158,9 @@
 
 		$(document).on('shown.bs.modal', '#modal-entry', function () 
 		{
-			$('#modal-entry .modal-body select').select2();
+			$('#modal-entry .modal-body select').select2({
+                minimumResultsForSearch: Infinity
+            });
 
             $('#modal-entry .modal-body input.datepicker-input').each(function() {
                 const dpElement = $(this)[0];

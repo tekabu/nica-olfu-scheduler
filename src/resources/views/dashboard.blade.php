@@ -68,6 +68,7 @@
 			<table class="table dt datatable-basic dataTable">
 				<thead>
 					<tr>
+						<th class="department_name">Department</th>
 						<th class="title">Title</th>
 						<th class="description">Description</th>
 						<th class="started_date">Started Date</th>
@@ -140,6 +141,7 @@
 			$('.dt').DataTable({
 				data: {!! $schedules !!},
 				columns: [
+					{ data: 'department_name' },
 					{ data: 'title' },
 					{ data: 'description' },
 					{ data: 'started_date' },

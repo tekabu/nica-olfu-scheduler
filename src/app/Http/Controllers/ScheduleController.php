@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,10 @@ class ScheduleController extends Controller
     {
         $user = Auth::user();
 
-        $table = $this->table_model::get();
+        $table = $this->table_model::with(['department'])
+        ->get();
+
+        # dd($table->toArray());
 
         $table->each(function ($item, $key) {
             $this->addTableRowAction($item);
@@ -40,6 +44,7 @@ class ScheduleController extends Controller
                 'action_edit' => $item->action_edit,
                 'action_update' => $item->action_update,
                 'action_delete' => $item->action_delete,
+                'department_name' => $item->department_name,
                 'title' => $item->title,
                 'description' => $item->description,
                 'started_date' => $item->started_date,
@@ -47,6 +52,8 @@ class ScheduleController extends Controller
                 'completed_date' => $item->completed_date,
             ];
         });
+
+        # dd($table->toArray());
 
         return view($this->templates_dir . '.table', [
             'user' => $user,
@@ -88,10 +95,13 @@ class ScheduleController extends Controller
     {
         $user = Auth::user();
 
+        $departments = Department::get();
+
         return response()->json([
             'status' => true,
             'html' => view($this->templates_dir . '.entry', [
                 'parent_route' => $this->parent_route,
+                'departments' => $departments,
             ])->render()
         ]);
     }
@@ -115,6 +125,7 @@ class ScheduleController extends Controller
     public function storeSchedule(Request $request)
     {
         $request->validate([
+            'department_id' => 'required|integer|exists:departments,id',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'started_date' => 'required|date',
@@ -123,7 +134,7 @@ class ScheduleController extends Controller
         ]);
 
         $schedule = new Schedule();
-        $schedule->department_id = 1;
+        $schedule->department_id = $request->input('department_id');
         $schedule->title = $request->input('title');
         $schedule->description = $request->input('description');
         $schedule->started_at = $request->input('started_date');
@@ -143,6 +154,7 @@ class ScheduleController extends Controller
             'started_date' => $schedule->started_date,
             'ended_date' => $schedule->ended_date,
             'completed_date' => $schedule->completed_date,
+            'department_name' => $schedule->department->name,
         ];
 
         return response()->json([
@@ -163,12 +175,15 @@ class ScheduleController extends Controller
 
         $schedule = (object) $schedule;
 
+        $departments = Department::get();
+
         if ($schedule) {
             return response()->json([
                 'status' => true,
                 'html' => view($this->templates_dir . '.entry', [
                     'parent_route' => $this->parent_route,
-                    'row' => $schedule
+                    'row' => $schedule,
+                    'departments' => $departments,
                 ])->render()
             ]);
         } else {
@@ -181,6 +196,7 @@ class ScheduleController extends Controller
     public function updateSchedule($id, Request $request)
     {
         $request->validate([
+            'department_id' => 'required|integer|exists:departments,id',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'started_date' => 'required|date',
@@ -191,6 +207,7 @@ class ScheduleController extends Controller
         $schedule = $this->table_model::find($id);
 
         if ($schedule) {
+            $schedule->department_id = $request->input('department_id');
             $schedule->title = $request->input('title');
             $schedule->description = $request->input('description');
             $schedule->started_at = $request->input('started_date');
@@ -210,6 +227,7 @@ class ScheduleController extends Controller
                 'started_date' => $schedule->started_date,
                 'ended_date' => $schedule->ended_date,
                 'completed_date' => $schedule->completed_date,
+                'department_name' => $schedule->department->name,
             ];
 
             return response()->json([

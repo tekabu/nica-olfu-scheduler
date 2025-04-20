@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
-    protected $appends = ['started_date', 'ended_date', 'completed_date'];
+    protected $appends = ['started_date', 'ended_date', 'completed_date', 'department_name'];
 
     public function getStartedDateAttribute()
     {
@@ -22,5 +22,13 @@ class Schedule extends Model
             return null;
         }
         return date('M. d, Y', strtotime($this->completed_at));
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+    public function getDepartmentNameAttribute()
+    {
+        return $this->department ? $this->department->name : null;
     }
 }

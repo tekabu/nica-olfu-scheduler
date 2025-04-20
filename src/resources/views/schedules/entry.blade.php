@@ -4,6 +4,23 @@
     @endif
 
     @php
+        $uuid_department = Str::uuid();
+    @endphp
+
+    <div class="mb-3">
+        <div class="form-group">
+            <label for="{{ $uuid_department }}" class="form-label">Department<span class="required"> *</span></label>
+            <select id="{{ $uuid_department }}" name="department_id" required="required" class="form-control">
+                @foreach ($departments as $department)
+                    <option value="{{ $department->id }}"
+                        {{ isset($row) && $row->department_id == $department->id ? 'selected' : '' }}>
+                        {{ $department->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+
+    @php
         $uuid_title = Str::uuid();
     @endphp
 
