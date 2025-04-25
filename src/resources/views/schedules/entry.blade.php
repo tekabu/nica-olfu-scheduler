@@ -62,8 +62,8 @@
 
     <div class="mb-3">
         <div class="form-group">
-            <label for="{{ $uuid_ended_date }}" class="form-label">End Date<span class="required"> *</span></label>
-            <input id="{{ $uuid_ended_date }}" name="ended_date" placeholder="End Date" required="required" type="text"
+            <label for="{{ $uuid_ended_date }}" class="form-label">Due Date<span class="required"> *</span></label>
+            <input id="{{ $uuid_ended_date }}" name="ended_date" placeholder="Due Date" required="required" type="text"
                 value="{{ $row->ended_date ?? '' }}" class="form-control datepicker-input">
         </div>
     </div>

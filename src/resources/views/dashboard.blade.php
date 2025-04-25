@@ -72,7 +72,7 @@
 						<th class="title">Title</th>
 						<th class="description">Description</th>
 						<th class="started_date">Started Date</th>
-						<th class="ended_date">Ended Date</th>
+						<th class="ended_date">Due Date</th>
 						<th class="completed_date">Completed Date</th>
 					</tr>
 				</thead>
